@@ -17,7 +17,10 @@ def model_pre_change(sender, **kwargs):
 @receiver(post_save, sender=Question)
 @receiver(post_save, sender=Choice)
 def model_post_save(sender, **kwargs):
-    print('Saved: {}'.format(kwargs['instance'].__dict__))
+    if kwargs['created'] is True:
+        print('Created: {}'.format(kwargs['instance'].__dict__))
+    else:
+        print('Updated: {}'.format(kwargs['instance'].__dict__))
 
 
 @receiver(post_delete, sender=Question)
